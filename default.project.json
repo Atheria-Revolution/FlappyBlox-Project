@@ -1,0 +1,43 @@
+{
+  "name": "FlappyBlox",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Common": {
+        "$path": "src/shared"
+      },
+      "ToolibsUtils": {
+        "$path": "src/ToolLibs"
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+
+    "Lighting": {
+      "$properties": {
+        "Ambient": [
+          0,
+          0,
+          0
+        ],
+        "Brightness": 2,
+        "GlobalShadows": true,
+        "Outlines": false,
+        "Technology": "Voxel"
+      }
+    }
+  }
+}
