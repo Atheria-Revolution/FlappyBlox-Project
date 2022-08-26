@@ -13,6 +13,10 @@ warn("Setting up Flappy Blox")
 local FB = require(script:FindFirstChild("FlappyBlox"))
 
 FB.Setup()
+delay(.05, function()
+	FB.StopRotation()
+end)
+
 
 remote.OnServerEvent:Connect(function()
 	FB.Jump()
