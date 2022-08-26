@@ -2,10 +2,24 @@
 
 local ToolLibs = game.ReplicatedStorage:FindFirstChild("ToolibsUtils")
 local ModuleInit = require(ToolLibs:FindFirstChild("ModuleLoaderUtil"))
+local InstanceUtil = require(ToolLibs.InstanceUtil)
+local remote = InstanceUtil.Instanciate("RemoteEvent", game.ReplicatedStorage, {["Name"] = "ClickRemote"})
+local remote2 = InstanceUtil.Instanciate("RemoteEvent", game.ReplicatedStorage, {["Name"] = "ScoreRemote"})
+
+local GameStarted = false
 
 warn("Setting up Flappy Blox")
-require(script:FindFirstChild("SetupModule"))()
 
-script:FindFirstChild("SetupModule"):Destroy()
+local FB = require(script:FindFirstChild("FlappyBlox"))
 
-ModuleInit.Load(script, true)
+FB.Setup()
+
+remote.OnServerEvent:Connect(function()
+	FB.Jump()
+	if GameStarted == false then
+		GameStarted = true
+		delay(.05, function()
+			FB.Start()
+		end)
+	end
+end)
