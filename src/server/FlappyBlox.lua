@@ -15,7 +15,7 @@ local InstanceUtil = require(Toolibs.InstanceUtil)
 local GameOver = false
 local debounce = 5
 local d = false
-local MAX_Rotation = -45
+local RotationAtt = game.Workspace.Terrain:FindFirstChild("Attachment")
 
 --= Functions =--
 
@@ -33,21 +33,6 @@ function SpawnPipe()
     T:Play()
     wait(15)
     Pipe:Destroy()
-end
-
-function Module.StopRotation()
-
-    while true do
-        wait()
-        if game.Workspace.Bird.BirdAnim1.Orientation.Z > MAX_Rotation then
-            game.Workspace.Bird.BirdAnim1.AssemblyAngularVelocity = Vector3.new(0,0,0)
-            game.Workspace.Bird.BirdAnim2.AssemblyAngularVelocity = Vector3.new(0,0,0)
-            game.Workspace.Bird.BirdAnim3.AssemblyAngularVelocity = Vector3.new(0,0,0)
-            game.Workspace.Bird.BirdAnim1.Orientation = Vector3.new(game.Workspace.Bird.BirdAnim3.Orientation.X, game.Workspace.Bird.BirdAnim2.Orientation.Y, MAX_Rotation)
-            game.Workspace.Bird.BirdAnim2.Orientation = Vector3.new(game.Workspace.Bird.BirdAnim3.Orientation.X, game.Workspace.Bird.BirdAnim2.Orientation.Y, MAX_Rotation)
-            game.Workspace.Bird.BirdAnim3.Orientation = Vector3.new(game.Workspace.Bird.BirdAnim3.Orientation.X, game.Workspace.Bird.BirdAnim2.Orientation.Y, MAX_Rotation)
-        end
-    end
 end
 
 function EndGame(hit)
@@ -111,9 +96,12 @@ function Module.Jump()
         else
             Bird.BirdAnim1.Anchored = false
             Bird.BirdAnim1.AssemblyLinearVelocity = Vector3.new(0,35,0)
-            Bird.BirdAnim1.AssemblyAngularVelocity = Vector3.new(-8,0,0)
-            Bird.BirdAnim2.AssemblyAngularVelocity = Vector3.new(-8,0,0)
-            Bird.BirdAnim3.AssemblyAngularVelocity = Vector3.new(-8,0,0)
+            Bird.BirdAnim1.Attachment.AlignOrientation.RigidityEnabled = true
+            RotationAtt.Orientation = Vector3.new(0,90,-45)
+            wait(0.1)
+            Bird.BirdAnim1.Attachment.AlignOrientation.RigidityEnabled = false
+            RotationAtt.Orientation = Vector3.new(0,90,67.5)
+
         end
     end
 end
